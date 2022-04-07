@@ -254,7 +254,7 @@ export class ExpressApp {
 
       // return a list of promises that we can await or chain
       return creds.map(
-        async ({ 'x-identity': id, 'x-signature': sig }) =>
+        ({ 'x-identity': id, 'x-signature': sig }) =>
           new Promise((resolve, reject) =>
             getServerWithAuth(
               {
