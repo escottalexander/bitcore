@@ -233,8 +233,8 @@ export class ExpressApp {
     /**
      * @description process simultaneous requests based on multiple sets of credentials
      * @param {Request} req
-     * @param {Response} res 
-     * @param {Object} opts 
+     * @param {Response} res
+     * @param {Object} opts
      * @returns Array<Promise>
      */
     const getServerWithMultiAuth = (req, res, opts = {}) => {
@@ -253,17 +253,24 @@ export class ExpressApp {
       const { headers: headerTemplate, ...reqTemplate } = req;
 
       // return a list of promises that we can await or chain
-      return creds.map(async ({
-        'x-identity': id,
-        'x-signature': sig
-      }) => new Promise((resolve, reject) => getServerWithAuth({
-        ...reqTemplate,
-        headers: {
-          ...headerTemplate,
-          'x-identity': id,
-          'x-signature': sig
-        }
-      }, res, opts, (e, server) => e ? reject(e) : resolve(server))));
+      return creds.map(
+        async ({ 'x-identity': id, 'x-signature': sig }) =>
+          new Promise((resolve, reject) =>
+            getServerWithAuth(
+              {
+                ...reqTemplate,
+                headers: {
+                  ...headerTemplate,
+                  'x-identity': id,
+                  'x-signature': sig
+                }
+              },
+              res,
+              opts,
+              (e, server) => (e ? reject(e) : resolve(server))
+            )
+          )
+      );
     };
 
     let createWalletLimiter;
@@ -772,7 +779,7 @@ export class ExpressApp {
 
     router.get('/v1/balance/all/', async (req, res) => {
       let responses;
-      
+
       const opts: { coin?: string; twoStep?: boolean; tokenAddress?: string; multisigContractAddress?: string } = {};
       if (req.query.coin) opts.coin = req.query.coin;
       if (req.query.twoStep == '1') opts.twoStep = true;
@@ -780,17 +787,26 @@ export class ExpressApp {
       if (req.query.multisigContractAddress) opts.multisigContractAddress = req.query.multisigContractAddress;
 
       try {
-        responses = await Promise.all(getServerWithMultiAuth(req, res, opts).map(promise => promise.then(
-          // then handler: builds a result object 
-          server => new Promise(resolve => server.getBalance(opts, (err, balance) => resolve({
-            walletId: server.walletId,
-            status: 'success', // default to success & override
-            ...(err ? { status: 'error', message: err.message } : {}),
-            balance
-          }))),
-          // catch handler: does not reject for partial failures
-          ({ message }) => Promise.resolve({ status: 'error', error: message })
-        )));
+        responses = await Promise.all(
+          getServerWithMultiAuth(req, res, opts).map(promise =>
+            promise.then(
+              // then handler: builds a result object
+              server =>
+                new Promise(resolve =>
+                  server.getBalance(opts, (err, balance) =>
+                    resolve({
+                      walletId: server.walletId,
+                      status: 'success', // default to success & override
+                      ...(err ? { status: 'error', message: err.message } : {}),
+                      balance
+                    })
+                  )
+                ),
+              // catch handler: does not reject for partial failures
+              ({ message }) => Promise.resolve({ status: 'error', error: message })
+            )
+          )
+        );
       } catch (err) {
         // note: getServerWithMultiAuth will only throw synchronously
         return returnError(err, res, req);

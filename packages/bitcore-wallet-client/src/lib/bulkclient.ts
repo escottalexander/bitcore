@@ -22,11 +22,11 @@ export class BulkClient extends Client {
 
   /**
    * @description I isolated the part that was different
-   * @override 
+   * @override
    */
   _populateAuth(
     headers: any,
-    signingParams: { method: string, url: string, args: any }
+    signingParams: { method: string; url: string; args: any }
   ) {
     if (this.credentials && this.credentials.length) {
       headers['x-multi-credentials'] = JSON.stringify(
@@ -51,11 +51,11 @@ export class BulkClient extends Client {
   }
 
   /**
-  * @description get wallet balance for all wallets
-  * @param {Array<Client>} clients an array of client instances
-  * @param {String} opts.multisigContractAddress optional: MULTISIG ETH Contract Address
-  * @param {Function} cb
-  */
+   * @description get wallet balance for all wallets
+   * @param {Array<Client>} clients an array of client instances
+   * @param {String} opts.multisigContractAddress optional: MULTISIG ETH Contract Address
+   * @param {Function} cb
+   */
   getBalanceAll(clients, cb) {
     // parse out all of the credentials from each of the clients
     const credentials = clients.map(({ credentials }) => credentials);

@@ -46,7 +46,12 @@ export class Request {
 
   _populateAuth(
     headers: any,
-    signingParams: { method: string, url: string, args: any, _requestPrivKey?: string },
+    signingParams: {
+      method: string;
+      url: string;
+      args: any;
+      _requestPrivKey?: string;
+    },
     useSession?: boolean
   ) {
     if (this.credentials) {
