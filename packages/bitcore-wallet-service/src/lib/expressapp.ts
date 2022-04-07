@@ -230,48 +230,40 @@ export class ExpressApp {
       });
     };
 
-    const getServerWithMultiAuth = (
-      req,
-      res,
-      opts,
-      cb1: (err: any, data?: any) => void,
-      cb2?: (err: any, data?: any) => void
-    ) => {
-      if (_.isFunction(opts)) {
-        cb2 = cb1;
-        cb1 = opts;
-        opts = {};
-      }
-      opts = opts || {};
-
+    /**
+     * @description process simultaneous requests based on multiple sets of credentials
+     * @param {Request} req
+     * @param {Response} res 
+     * @param {Object} opts 
+     * @returns Array<Promise>
+     */
+    const getServerWithMultiAuth = (req, res, opts = {}) => {
       let creds = req.headers['x-multi-credentials'] ? JSON.parse(req.headers['x-multi-credentials']) : false;
+
       if (!creds) {
-        return returnError(
-          new ClientError({
-            code: 'NOT_AUTHORIZED'
-          }),
-          res,
-          req
-        );
+        // the calling context already has req and res, so just the error is fine
+        throw new ClientError({ code: 'NOT_AUTHORIZED' });
       }
 
-      let requests = [];
-      creds.forEach(cred => {
-        let singleRequest = _.cloneDeep(req);
-        singleRequest.headers['x-identity'] = cred['x-identity'];
-        singleRequest.headers['x-signature'] = cred['x-signature'];
-        requests.push(singleRequest);
-      });
+      // Add an error case for creds not parsing into something iterable
 
-      const getServerWithAuthWrapper = (singleReq, next) => {
-        const callBack = server => {
-          cb1(server, next);
-        };
+      // Add a max number of creds allowed and an error case
+      // (this is extra relevant since they execute in parallel)
 
-        getServerWithAuth(singleReq, res, opts, callBack);
-      };
+      const { headers: headerTemplate, ...reqTemplate } = req;
 
-      async.each(requests, getServerWithAuthWrapper, cb2);
+      // return a list of promises that we can await or chain
+      return creds.map(async ({
+        'x-identity': id,
+        'x-signature': sig
+      }) => new Promise((resolve, reject) => getServerWithAuth({
+        ...reqTemplate,
+        headers: {
+          ...headerTemplate,
+          'x-identity': id,
+          'x-signature': sig
+        }
+      }, res, opts, (e, server) => e ? reject(e) : resolve(server))));
     };
 
     let createWalletLimiter;
@@ -778,29 +770,33 @@ export class ExpressApp {
       });
     });
 
-    router.get('/v1/balance/all/', (req, res) => {
-      let responses = [];
-      getServerWithMultiAuth(
-        req,
-        res,
-        (server, next) => {
-          let opts: { coin?: string; twoStep?: boolean; tokenAddress?: string; multisigContractAddress?: string } = {};
-          if (req.query.coin) opts.coin = req.query.coin;
-          if (req.query.twoStep == '1') opts.twoStep = true;
-          if (req.query.tokenAddress) opts.tokenAddress = req.query.tokenAddress;
-          if (req.query.multisigContractAddress) opts.multisigContractAddress = req.query.multisigContractAddress;
+    router.get('/v1/balance/all/', async (req, res) => {
+      let responses;
+      
+      const opts: { coin?: string; twoStep?: boolean; tokenAddress?: string; multisigContractAddress?: string } = {};
+      if (req.query.coin) opts.coin = req.query.coin;
+      if (req.query.twoStep == '1') opts.twoStep = true;
+      if (req.query.tokenAddress) opts.tokenAddress = req.query.tokenAddress;
+      if (req.query.multisigContractAddress) opts.multisigContractAddress = req.query.multisigContractAddress;
 
-          server.getBalance(opts, (err, balance) => {
-            if (err) return returnError(err, res, req);
-            responses.push({ [server.walletId]: balance });
-            next();
-            // return balance;
-          });
-        },
-        err => {
-          res.json(responses);
-        }
-      );
+      try {
+        responses = await Promise.all(getServerWithMultiAuth(req, res, opts).map(promise => promise.then(
+          // then handler: builds a result object 
+          server => new Promise(resolve => server.getBalance(opts, (err, balance) => resolve({
+            walletId: server.walletId,
+            status: 'success', // default to success & override
+            ...(err ? { status: 'error', message: err.message } : {}),
+            balance
+          }))),
+          // catch handler: does not reject for partial failures
+          ({ message }) => Promise.resolve({ status: 'error', error: message })
+        )));
+      } catch (err) {
+        // note: getServerWithMultiAuth will only throw synchronously
+        return returnError(err, res, req);
+      }
+
+      return res.json(responses);
     });
 
     let estimateFeeLimiter;
