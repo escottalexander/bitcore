@@ -83,6 +83,7 @@ export class TextFile {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async listWallets() {
     return fs
       .createReadStream(this.walletFileName, { flags: 'r', encoding: 'utf8' })
@@ -98,6 +99,7 @@ export class TextFile {
       );
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async listKeys() {
     return fs.createReadStream(this.addressFileName, { flags: 'r', encoding: 'utf8' }).pipe(
       new stream.Transform({

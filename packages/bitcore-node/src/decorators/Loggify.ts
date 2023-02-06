@@ -21,7 +21,7 @@ export function SavePerformance(logPrefix, startTime, endTime) {
   }
 }
 
-export function LoggifyClass<T extends new (...args: any[]) => {}>(aClass: T) {
+export function LoggifyClass<T extends new (...args: any[]) => object>(aClass: T) {
   if (!args.DEBUG) {
     return aClass;
   }
@@ -39,7 +39,7 @@ export function LoggifyClass<T extends new (...args: any[]) => {}>(aClass: T) {
   };
 }
 
-export function LoggifyFunction(fn: (...args: any[]) => any, logPrefix: string = '', bind?: any) {
+export function LoggifyFunction(fn: (...args: any[]) => any, logPrefix = '', bind?: any) {
   if (!args.DEBUG) {
     return fn as (...methodargs: any[]) => any;
   }
@@ -69,7 +69,7 @@ export function LoggifyFunction(fn: (...args: any[]) => any, logPrefix: string =
   };
 }
 
-export function LoggifyObject(obj: any, logPrefix: string = '', bind?: any) {
+export function LoggifyObject(obj: any, logPrefix = '', bind?: any) {
   if (!args.DEBUG) {
     return obj;
   }

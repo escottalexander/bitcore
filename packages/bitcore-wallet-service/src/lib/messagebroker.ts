@@ -4,6 +4,7 @@ import logger from './logger';
 
 export class MessageBroker extends EventEmitter {
   remote: boolean;
+  // eslint-disable-next-line no-undef
   mq: SocketIO.Socket;
   constructor(opts) {
     super();

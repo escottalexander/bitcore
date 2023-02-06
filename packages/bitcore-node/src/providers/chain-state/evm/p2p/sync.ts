@@ -15,16 +15,16 @@ export class MultiThreadSync extends EventEmitter {
   private network: string;
   private syncInterval?: NodeJS.Timeout;
   private threads: Thread[] = [];
-  private syncingThreads: number = 0;
-  private bestBlock: number = 0;
-  private syncHeight: number = 0;
-  private stopping: boolean = false;
+  private syncingThreads = 0;
+  private bestBlock = 0;
+  private syncHeight = 0;
+  private stopping = false;
   private syncQueue: number[] = [];
-  private syncing: boolean = false;
+  private syncing = false;
   private config: IEVMNetworkConfig;
-  private resolvingGaps: boolean = false;
-  private gapsLength: number = 0;
-  protected currentHeight: number = 0;
+  private resolvingGaps = false;
+  private gapsLength = 0;
+  protected currentHeight = 0;
 
   constructor({ chain, network }) {
     super();

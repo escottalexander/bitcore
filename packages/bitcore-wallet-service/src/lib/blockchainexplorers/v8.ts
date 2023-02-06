@@ -133,6 +133,7 @@ export class V8 {
       .catch(cb);
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getBalance(wallet, cb) {
     const client = this._getAuthClient(wallet);
     const { tokenAddress, multisigContractAddress } = wallet;
@@ -229,7 +230,7 @@ export class V8 {
   /**
    * Broadcast a transaction to the bitcoin network
    */
-  broadcast(rawTx, cb, count: number = 0) {
+  broadcast(rawTx, cb, count = 0) {
     const payload = {
       rawTx,
       network: this.v8network,

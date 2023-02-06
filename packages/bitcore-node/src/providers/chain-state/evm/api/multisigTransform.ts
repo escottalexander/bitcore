@@ -38,8 +38,8 @@ export class MultisigRelatedFilterTransform extends Transform {
       this.tokenAddress &&
       tx.to.toLowerCase() === this.tokenAddress.toLowerCase()
     ) {
-      tx.value = tx.abiType!.params[1].value as any;
-      tx.to = this.web3.utils.toChecksumAddress(tx.abiType!.params[0].value);
+      tx.value = tx.abiType.params[1].value as any;
+      tx.to = this.web3.utils.toChecksumAddress(tx.abiType.params[0].value);
     } else if (
       tx.internal &&
       tx.internal.length > 0 &&
@@ -50,8 +50,8 @@ export class MultisigRelatedFilterTransform extends Transform {
       tx.internal[0].action.from &&
       tx.internal[0].action.to.toLowerCase() === this.tokenAddress.toLowerCase()
     ) {
-      tx.value = tx.internal[0].abiType!.params[1].value as any;
-      tx.to = this.web3.utils.toChecksumAddress(tx.internal[0].abiType!.params[0].value);
+      tx.value = tx.internal[0].abiType.params[1].value as any;
+      tx.to = this.web3.utils.toChecksumAddress(tx.internal[0].abiType.params[0].value);
       tx.from = this.web3.utils.toChecksumAddress(tx.internal[0].action.from);
     } else if (tx.to !== this.multisigContractAddress || (tx.to === this.multisigContractAddress && tx.abiType)) {
       return done();

@@ -13,15 +13,13 @@ import { IEVMNetworkConfig } from '../../../types/Config';
 import { StreamWalletTransactionsParams } from '../../../types/namespaces/ChainStateProvider';
 import { MATIC } from './csp';
 
-interface MULTISIGInstantiation
-  extends EventLog<{
+type MULTISIGInstantiation = EventLog<{
     [key: string]: string;
-  }> {}
+  }>
 
-interface MULTISIGTxInfo
-  extends EventLog<{
+type MULTISIGTxInfo = EventLog<{
     [key: string]: string;
-  }> {}
+  }>
 
 export class GnosisApi {
   public gnosisFactories = {
@@ -87,7 +85,7 @@ export class GnosisApi {
       .limit(1)
       .toArray();
 
-    const blockHeight = block!.height;
+    const blockHeight = block.height;
     const [confirmationInfo, revocationInfo, executionInfo, executionFailure] = await Promise.all([
       contract.getPastEvents('Confirmation', {
         fromBlock: blockHeight,

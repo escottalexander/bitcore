@@ -142,6 +142,7 @@ export class PushNotificationsService {
         },
         done => {
           this.messageBroker = opts.messageBroker || new MessageBroker(opts.messageBrokerOpts);
+          // eslint-disable-next-line @typescript-eslint/unbound-method
           this.messageBroker.onMessage(_.bind(this._sendPushNotifications, this));
           done();
         }
@@ -420,6 +421,7 @@ export class PushNotificationsService {
         async.waterfall(
           [
             next => {
+              // eslint-disable-next-line @typescript-eslint/no-floating-promises
               this._getDataForTemplate(notification, recipient, next);
             },
             (data, next) => {

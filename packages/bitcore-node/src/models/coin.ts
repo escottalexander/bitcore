@@ -32,8 +32,8 @@ export class CoinModel extends BaseModel<ICoin> {
   }
 
   allowedPaging = [
-    { key: 'mintHeight' as 'mintHeight', type: 'number' as 'number' },
-    { key: 'spentHeight' as 'spentHeight', type: 'number' as 'number' }
+    { key: 'mintHeight' as const, type: 'number' as const },
+    { key: 'spentHeight' as const, type: 'number' as const }
   ];
 
   onConnect() {
@@ -117,7 +117,7 @@ export class CoinModel extends BaseModel<ICoin> {
       .limit(1)
       .sort({ timeNormalized: -1 })
       .toArray();
-    const blockHeight = block!.height;
+    const blockHeight = block.height;
     const combinedQuery = Object.assign(
       {},
       {

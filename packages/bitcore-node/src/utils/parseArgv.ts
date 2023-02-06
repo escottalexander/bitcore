@@ -1,6 +1,7 @@
 /**
  * parseArgv
  * returns an object from argv
+ *
  * @param {String[]} required - array of required arguments
  * @param {String[]} optional=[] - array of optional arguments to capture
  * @returns {object}

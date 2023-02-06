@@ -227,7 +227,7 @@ export class BaseEVMStateProvider extends InternalStateProvider implements IChai
 
   async streamAddressTransactions(params: StreamAddressUtxosParams) {
     const { req, res, args, chain, network, address } = params;
-    const { limit, /*since,*/ tokenAddress } = args;
+    const { limit, /* since,*/ tokenAddress } = args;
     if (!args.tokenAddress) {
       const query = {
         $or: [
@@ -239,7 +239,7 @@ export class BaseEVMStateProvider extends InternalStateProvider implements IChai
 
       // NOTE: commented out since and paging for now b/c they were causing extra long query times on insight.
       // The case where an address has >1000 txns is an edge case ATM and can be addressed later
-      Storage.apiStreamingFind(EVMTransactionStorage, query, { limit /*since, paging: '_id'*/ }, req!, res!);
+      Storage.apiStreamingFind(EVMTransactionStorage, query, { limit /* since, paging: '_id'*/ }, req!, res!);
     } else {
       try {
         const tokenTransfers = await this.getErc20Transfers(network, address, tokenAddress, args);

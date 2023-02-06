@@ -68,7 +68,7 @@ export enum CacheTimes {
   Month = CacheTimes.Day * 30,
   Year = CacheTimes.Day * 365
 }
-export function SetCache(res: express.Response, serverSeconds: number, browserSeconds: number = 0) {
+export function SetCache(res: express.Response, serverSeconds: number, browserSeconds = 0) {
   res.setHeader('Cache-Control', `s-maxage=${serverSeconds}, max-age=${browserSeconds}`);
 }
 

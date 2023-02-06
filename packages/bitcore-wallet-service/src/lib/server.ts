@@ -1,3 +1,4 @@
+/* eslint-disable */ // TODO: File too large to lint, need to split up
 import * as async from 'async';
 import * as _ from 'lodash';
 import 'source-map-support/register';
@@ -99,6 +100,7 @@ function boolToNum(x: boolean) {
 }
 /**
  * Creates an instance of the Bitcore Wallet Service.
+ *
  * @constructor
  */
 export class WalletService {
@@ -149,6 +151,7 @@ export class WalletService {
 
   /**
    * Initializes global settings for all instances.
+   *
    * @param {Object} opts
    * @param {Storage} [opts.storage] - The storage provider.
    * @param {Storage} [opts.blockchainExplorer] - The blockchainExporer provider.
@@ -262,6 +265,7 @@ export class WalletService {
 
   /**
    * Gets an instance of the server without authentication.
+   *
    * @param {Object} opts
    * @param {string} opts.clientVersion - A string that identifies the client issuing the request
    */
@@ -284,6 +288,7 @@ export class WalletService {
 
   /**
    * Gets an instance of the server after authenticating the copayer.
+   *
    * @param {Object} opts
    * @param {string} opts.copayerId - The copayer id making the request.
    * @param {string} opts.message - (Optional) The contents of the request to be signed.
@@ -459,6 +464,7 @@ export class WalletService {
 
   /**
    * Creates a new wallet.
+   *
    * @param {Object} opts
    * @param {string} opts.id - The wallet id.
    * @param {string} opts.name - The wallet name.
@@ -585,6 +591,7 @@ export class WalletService {
 
   /**
    * Retrieves a wallet from storage.
+   *
    * @param {Object} opts
    * @returns {Object} wallet
    */
@@ -617,6 +624,7 @@ export class WalletService {
 
   /**
    * Retrieves a wallet from storage.
+   *
    * @param {Object} opts
    * @param {string} opts.identifier - The identifier associated with the wallet (one of: walletId, address, txid).
    * @param {string} opts.walletCheck - Check v8 wallet sync
@@ -669,6 +677,7 @@ export class WalletService {
 
   /**
    * Retrieves wallet status.
+   *
    * @param {Object} opts
    * @param {Object} opts.includeExtendedInfo - Include PKR info & address managers for wallet & copayers
    * @param {Object} opts.includeServerMessages - Include server messages array
@@ -1017,6 +1026,7 @@ export class WalletService {
 
   /**
    * Joins a wallet in creation.
+   *
    * @param {Object} opts
    * @param {string} opts.walletId - The wallet id.
    * @param {string} opts.coin[='btc'] - The expected coin for this wallet (btc, bch, eth, doge, ltc).
@@ -1127,6 +1137,7 @@ export class WalletService {
 
   /**
    * Save copayer preferences for the current wallet/copayer pair.
+   *
    * @param {Object} opts
    * @param {string} opts.email - Email address for notifications.
    * @param {string} opts.language - Language used for notifications.
@@ -1294,6 +1305,7 @@ export class WalletService {
 
   /**
    * Retrieves a preferences for the current wallet/copayer pair.
+   *
    * @param {Object} opts
    * @returns {Object} preferences
    */
@@ -1309,7 +1321,7 @@ export class WalletService {
 
     this.storage.fetchAddresses(this.walletId, (err, addresses: IAddress[]) => {
       if (err) return cb(err);
-      const latestAddresses = addresses.filter(x => !x.isChange).slice(-Defaults.MAX_MAIN_ADDRESS_GAP) as IAddress[];
+      const latestAddresses = addresses.filter(x => !x.isChange).slice(-Defaults.MAX_MAIN_ADDRESS_GAP) ;
       if (
         latestAddresses.length < Defaults.MAX_MAIN_ADDRESS_GAP ||
         _.some(latestAddresses, {
@@ -1367,6 +1379,7 @@ export class WalletService {
 
   /**
    * Creates a new address.
+   *
    * @param {Object} opts
    * @param {Boolean} [opts.ignoreMaxGap=false] - Ignore constraint of maximum number of consecutive addresses without activity
    * @param {Boolean} opts.noCashAddr (do not use cashaddr, only for backwards compat)
@@ -1458,6 +1471,7 @@ export class WalletService {
 
   /**
    * Get all addresses.
+   *
    * @param {Object} opts
    * @param {Numeric} opts.limit (optional) - Limit the resultset. Return all addresses by default.
    * @param {Boolean} [opts.reverse=false] (optional) - Reverse the order of returned addresses.
@@ -1484,6 +1498,7 @@ export class WalletService {
 
   /**
    * Verifies that a given message was actually sent by an authorized copayer.
+   *
    * @param {Object} opts
    * @param {string} opts.message - The message to verify.
    * @param {string} opts.signature - The signature of message to verify.
@@ -1728,6 +1743,7 @@ export class WalletService {
 
   /**
    * Returns list of UTXOs
+   *
    * @param {Object} opts
    * @param {Array} [opts.addresses] - List of addresses. options. only one address is supported
    * @returns {Array} utxos - List of UTXOs.
@@ -1777,6 +1793,7 @@ export class WalletService {
 
   /**
    * Returns list of Coins for TX
+   *
    * @param {Object} opts
    * @param {string} opts.coin - The coin of the transaction.
    * @param {string} opts.network - the network of the transaction.
@@ -1806,6 +1823,7 @@ export class WalletService {
 
   /**
    * Get wallet balance.
+   *
    * @param {Object} opts
    * @returns {Object} balance - Total amount & locked amount.
    */
@@ -1849,6 +1867,7 @@ export class WalletService {
 
   /**
    * Return info needed to send all funds in the wallet
+   *
    * @param {Object} opts
    * @param {number} opts.feeLevel[='normal'] - Optional. Specify the fee level for this TX ('priority', 'normal', 'economy', 'superEconomy') as defined in Defaults.FEE_LEVELS.
    * @param {number} opts.feePerKb - Optional. Specify the fee per KB for this TX (in satoshi).
@@ -1923,6 +1942,7 @@ export class WalletService {
 
   /**
    * Returns fee levels for the current state of the network.
+   *
    * @param {Object} opts
    * @param {string} [opts.coin = 'btc'] - The coin to estimate fee levels from.
    * @param {string} [opts.chain = 'btc'] - The coin to estimate fee levels from.
@@ -2322,6 +2342,7 @@ export class WalletService {
 
   /**
    * Creates a new transaction proposal.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - Optional. If provided it will be used as this TX proposal ID. Should be unique in the scope of the wallet.
    * @param {String} opts.coin - tx coin.
@@ -2546,6 +2567,7 @@ export class WalletService {
 
   /**
    * Publish an already created tx proposal so inputs are locked and other copayers in the wallet can see it.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - The tx id.
    * @param {string} opts.proposalSignature - S(raw tx). Used by other copayers to verify the proposal.
@@ -2611,6 +2633,7 @@ export class WalletService {
 
   /**
    * Retrieves a tx from storage.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - The tx id.
    * @returns {Object} txProposal
@@ -2634,6 +2657,7 @@ export class WalletService {
 
   /**
    * Edit note associated to a txid.
+   *
    * @param {Object} opts
    * @param {string} opts.txid - The txid of the tx on the blockchain.
    * @param {string} opts.body - The contents of the note.
@@ -2665,6 +2689,7 @@ export class WalletService {
 
   /**
    * Get tx notes.
+   *
    * @param {Object} opts
    * @param {string} opts.txid - The txid associated with the note.
    */
@@ -2675,6 +2700,7 @@ export class WalletService {
 
   /**
    * Get tx notes.
+   *
    * @param {Object} opts
    * @param {string} opts.minTs[=0] - The start date used to filter notes.
    */
@@ -2754,6 +2780,7 @@ export class WalletService {
 
   /**
    * Broadcast a raw transaction.
+   *
    * @param {Object} opts
    * @param {string} [opts.coin = 'btc'] - The coin for this transaction.
    * @param {string} [opts.chain = 'btc'] - The coin for this transaction.
@@ -2784,6 +2811,7 @@ export class WalletService {
 
   /**
    * Sign a transaction proposal.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - The identifier of the transaction.
    * @param {string} opts.signatures - The signatures of the inputs of this tx for this copayer (in appearance order)
@@ -2899,6 +2927,7 @@ export class WalletService {
 
   /**
    * Broadcast a transaction proposal.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - The identifier of the transaction.
    */
@@ -2984,6 +3013,7 @@ export class WalletService {
 
   /**
    * Reject a transaction proposal.
+   *
    * @param {Object} opts
    * @param {string} opts.txProposalId - The identifier of the transaction.
    * @param {string} [opts.reason] - A message to other copayers explaining the rejection.
@@ -3055,6 +3085,7 @@ export class WalletService {
 
   /**
    * Retrieves pending transaction proposals.
+   *
    * @param {Object} opts
    * @param {Boolean} opts.noCashAddr (do not use cashaddr, only for backwards compat)
    * @param {String} opts.tokenAddress ERC20 Token Contract Address
@@ -3648,6 +3679,7 @@ export class WalletService {
 
   /**
    * // Create Advertisement
+   *
    * @param opts
    * @param cb
    */
@@ -3711,6 +3743,7 @@ export class WalletService {
 
   /**
    * Get All active (live) advertisements
+   *
    * @param opts
    * @param opts.adId - adId of advert to get
    * @param cb
@@ -3724,6 +3757,7 @@ export class WalletService {
 
   /**
    * Get All active (live) advertisements
+   *
    * @param opts
    * @param cb
    */
@@ -3736,6 +3770,7 @@ export class WalletService {
 
   /**
    * Get adverts by country
+   *
    * @param opts.country
    * @param cb
    */
@@ -3748,6 +3783,7 @@ export class WalletService {
 
   /**
    * Get All active (live) advertisements
+   *
    * @param opts
    * @param cb
    */
@@ -3760,6 +3796,7 @@ export class WalletService {
 
   /**
    * Get all adverts regardless of inactive or active.
+   *
    * @param opts
    * @param cb
    */
@@ -4366,6 +4403,7 @@ export class WalletService {
 
   /**
    * Returns exchange rate for the specified currency & timestamp.
+   *
    * @param {Object} opts
    * @param {string} opts.code - Currency ISO code.
    * @param {Date} [opts.ts] - A timestamp to base the rate on (default Date.now()).
@@ -4383,6 +4421,7 @@ export class WalletService {
 
   /**
    * Returns exchange rates of the supported fiat currencies for all coins.
+   *
    * @param {Object} opts
    * @param {String} [opts.code] - Currency ISO code (e.g: USD, EUR, ARS).
    * @param {Date} [opts.ts] - A timestamp to base the rate on (default Date.now()).
@@ -4400,6 +4439,7 @@ export class WalletService {
 
   /**
    * Returns exchange rates of the supported fiat currencies for the specified coin.
+   *
    * @param {Object} opts
    * @param {String} opts.coin - The coin requested (btc, bch, eth, xrp, , ltc).
    * @param {String} [opts.code] - Currency ISO code (e.g: USD, EUR, ARS).
@@ -4419,6 +4459,7 @@ export class WalletService {
 
   /**
    * Returns historical exchange rates for the specified currency & timestamp range.
+   *
    * @param {Object} opts
    * @param {string} opts.code - Currency ISO code.
    * @param {Date} opts.ts - The oldest timestamp in the range to Date.now().
@@ -4436,6 +4477,7 @@ export class WalletService {
 
   /**
    * Subscribe this copayer to the Push Notifications service using the specified token.
+   *
    * @param {Object} opts
    * @param {string} opts.token - The token representing the app/device.
    * @param {string} [opts.packageName] - The restricted_package_name option associated with this token.
@@ -4457,6 +4499,7 @@ export class WalletService {
 
   /**
    * Subscribe this copayer to the Push Notifications service using the specified token.
+   *
    * @param {Object} opts
    * @param {string} opts.externalUserId - The token representing the app/device. - Braze
    * @param {string} [opts.packageName] - The restricted_package_name option associated with this token.
@@ -4479,6 +4522,7 @@ export class WalletService {
 
   /**
    * Unsubscribe this copayer to the Push Notifications service using the specified token.
+   *
    * @param {Object} opts
    * @param {string} opts.token - The token representing the app/device.
    */
@@ -4490,6 +4534,7 @@ export class WalletService {
 
   /**
    * Unsubscribe this copayer to the Push Notifications service using the specified token.
+   *
    * @param {Object} opts
    * @param {string} opts.externalUserId - The token representing the app/device. // Braze
    */
@@ -4501,6 +4546,7 @@ export class WalletService {
 
   /**
    * Subscribe this copayer to the specified tx to get a notification when the tx confirms.
+   *
    * @param {Object} opts
    * @param {string} opts.txid - The txid of the tx to be notified of.
    */
@@ -4520,6 +4566,7 @@ export class WalletService {
 
   /**
    * Unsubscribe this copayer to the Push Notifications service using the specified token.
+   *
    * @param {Object} opts
    * @param {string} opts.txid - The txid of the tx to be notified of.
    */
@@ -4635,7 +4682,7 @@ export class WalletService {
     if (req.body.showWalletAddressForm)
       qs.push('showWalletAddressForm=' + encodeURIComponent(req.body.showWalletAddressForm));
 
-    const URL_SEARCH: string = `?${qs.join('&')}`;
+    const URL_SEARCH = `?${qs.join('&')}`;
 
     const URLSignatureHash: string = Bitcore.crypto.Hash.sha256hmac(
       Buffer.from(URL_SEARCH),
@@ -4898,7 +4945,7 @@ export class WalletService {
         }
       }
 
-      const URL: string = `${keys.API}/v3/orders/quote/partner?timestamp=${Date.now().toString()}`;
+      const URL = `${keys.API}/v3/orders/quote/partner?timestamp=${Date.now().toString()}`;
       const XApiSignature: string = URL + JSON.stringify(req.body);
       const XApiSignatureHash: string = Bitcore.crypto.Hash.sha256hmac(
         Buffer.from(XApiSignature),
@@ -4953,7 +5000,7 @@ export class WalletService {
         }
       }
 
-      const URL: string = `${keys.API}/v3/orders/reserve?timestamp=${Date.now().toString()}`;
+      const URL = `${keys.API}/v3/orders/reserve?timestamp=${Date.now().toString()}`;
       const XApiSignature: string = URL + JSON.stringify(req.body);
       const XApiSignatureHash: string = Bitcore.crypto.Hash.sha256hmac(
         Buffer.from(XApiSignature),
@@ -5311,7 +5358,7 @@ export class WalletService {
 
       const chainId = chainIdMap[req.params?.['chain'] || 'eth'];
 
-      const URL: string = `${credentials.API}/v3.0/${chainId}/swap/?${qs.join('&')}`;
+      const URL = `${credentials.API}/v3.0/${chainId}/swap/?${qs.join('&')}`;
 
       this.request.get(
         URL,
@@ -5345,7 +5392,7 @@ export class WalletService {
 
       const chainId = chainIdMap[req.params?.['chain'] || 'eth'];
 
-      const URL: string = `${credentials.API}/v3.0/${chainId}/tokens`;
+      const URL = `${credentials.API}/v3.0/${chainId}/tokens`;
 
       this.request.get(
         URL,
@@ -5421,7 +5468,7 @@ export class WalletService {
 
   discoverPayId(req): Promise<any> {
     return new Promise((resolve, reject) => {
-      const URL: string = `https://${req.domain}/.well-known/webfinger?resource=payid%3A${req.handle}%24${req.domain}`;
+      const URL = `https://${req.domain}/.well-known/webfinger?resource=payid%3A${req.handle}%24${req.domain}`;
       const headers = {
         'PayID-Version': '1.0',
         Accept: 'application/payid+json'

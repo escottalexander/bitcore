@@ -31,6 +31,7 @@ export class Client {
     return Buffer.from(secp256k1.ecdsaSign(messageHash, privateKey).signature).toString('hex');
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async register(params) {
     const { payload } = params;
     // allow you to overload the client's baseUrl
@@ -44,6 +45,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getBalance(params) {
     const { payload, pubKey, tokenAddress, multisigContractAddress } = params;
     let query = '';
@@ -66,6 +68,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getCheckData(params) {
     const { payload, pubKey } = params;
     const url = `${this.baseUrl}/wallet/${pubKey}/check`;
@@ -78,6 +81,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getAddressTxos(params) {
     const { unspent, address } = params;
     const args = unspent ? `?unspent=${unspent}` : '';
@@ -87,6 +91,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getTx(params) {
     const { txid } = params;
     const url = `${this.baseUrl}/tx/${txid}`;
@@ -95,6 +100,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getCoins(params) {
     const { payload, pubKey, includeSpent } = params;
 
@@ -112,6 +118,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getCoinsForTx(params) {
     const { txId } = params;
     const url = `${this.baseUrl}/tx/${txId}/coins`;
@@ -158,6 +165,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async importAddresses(params) {
     const { payload, pubKey } = params;
     const url = `${this.baseUrl}/wallet/${pubKey}`;
@@ -172,6 +180,7 @@ export class Client {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async broadcast(params) {
     const { payload } = params;
     const url = `${this.baseUrl}/tx/send`;

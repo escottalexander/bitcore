@@ -6,7 +6,7 @@ import { IEVMNetworkConfig } from '../../types/Config';
 export function Web3Proxy(req: express.Request, res: express.Response) {
   const { chain, network } = req.params;
   const chainConfig: IEVMNetworkConfig = Config.chainConfig({ chain, network });
-  const provider = chainConfig.provider || (chainConfig.providers && chainConfig.providers![0]);
+  const provider = chainConfig.provider || (chainConfig.providers && chainConfig.providers[0]);
   if (provider && chainConfig.publicWeb3) {
     const { host, port } = provider;
     const url = `http://${host}:${port}`;

@@ -387,6 +387,7 @@ export class Storage {
         .sort({
           createdOn: -1
         })
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/require-await
         .toArray(async (err, result) => {
           if (err) return reject(err);
           if (!result) return reject();
@@ -653,6 +654,7 @@ export class Storage {
         if (err) return cb(err);
         if (!result) return cb();
 
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         return cb(null, result.map(Address.fromObj));
       });
   }
@@ -680,6 +682,7 @@ export class Storage {
         return cb(e);
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.db.collection(collections.ADDRESSES).updateMany({ _id: doc._id }, { $set: { address: x } });
       cursor.resume();
     });
@@ -714,6 +717,7 @@ export class Storage {
       .toArray((err, result) => {
         if (err) return cb(err);
         if (!result) return cb();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         return cb(null, result.map(Address.fromObj));
       });
   }
@@ -1665,6 +1669,7 @@ export class Storage {
       .toArray((err, result) => {
         if (err) return cb(err);
         if (!result) return cb();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         return cb(null, result.map(Advertisement.fromObj));
       });
   }
@@ -1678,6 +1683,7 @@ export class Storage {
       .toArray((err, result) => {
         if (err) return cb(err);
         if (!result) return cb();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         return cb(null, result.map(Advertisement.fromObj));
       });
   }
@@ -1691,6 +1697,7 @@ export class Storage {
       .toArray((err, result) => {
         if (err) return cb(err);
         if (!result) return cb();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         return cb(null, result.map(Advertisement.fromObj));
       });
   }

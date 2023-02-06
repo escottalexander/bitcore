@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { ETHTxProvider } from '../eth';
 import { ERC20Abi, MULTISENDAbi } from './abi';
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const { toBN } = Web3.utils;
 
 export class ERC20TxProvider extends ETHTxProvider {

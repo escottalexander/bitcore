@@ -215,7 +215,7 @@ export class BitcoinP2PWorker extends BaseP2PWorker<IBtcBlock> {
 
   getBestPoolHeight(): number {
     let best = 0;
-    for (const peer of Object.values(this.pool._connectedPeers) as { bestHeight: number }[]) {
+    for (const peer of Object.values(this.pool._connectedPeers) ) {
       if (peer.bestHeight > best) {
         best = peer.bestHeight;
       }

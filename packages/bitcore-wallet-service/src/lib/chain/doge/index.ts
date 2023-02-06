@@ -344,7 +344,7 @@ export class DogeChain extends BtcChain implements IChain {
       };
 
       let inputs = _.reject(utxos, 'locked');
-      if (!!opts.excludeUnconfirmedUtxos) {
+      if (opts.excludeUnconfirmedUtxos) {
         inputs = _.filter(inputs, 'confirmations');
       }
       inputs = _.sortBy(inputs, input => {

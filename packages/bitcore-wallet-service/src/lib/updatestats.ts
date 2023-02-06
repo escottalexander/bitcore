@@ -50,14 +50,17 @@ export class UpdateStats {
       [
         next => {
           console.log('## Updating new wallets stats...');
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this._updateNewWallets(next);
         },
         next => {
           console.log('## Updating tx proposals stats...');
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this._updateTxProposals(next);
         },
         next => {
           console.log('## Updating fiat rates stats...');
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this._updateFiatRates(next);
         }
       ],
@@ -96,6 +99,7 @@ export class UpdateStats {
           }
         }
       ])
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .toArray(async (err, res) => {
         if (err) {
           console.log('Update wallet stats throws error:', err);
@@ -119,6 +123,7 @@ export class UpdateStats {
                 res = res.filter(x => x._id.day);
                 console.log(`\tTrying to insert ${res.length} entries`);
                 const opts: any = { ordered: false };
+                // eslint-disable-next-line @typescript-eslint/await-thenable
                 await this.db.collection('stats_wallets').insert(res, opts);
                 console.log(`${res.length} entries inserted in stats_wallets`);
               });
@@ -165,6 +170,7 @@ export class UpdateStats {
           }
         }
       ])
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .toArray(async (err, res) => {
         if (err) {
           console.log('!! Update fiat rates stats throws error:', err);
@@ -188,6 +194,7 @@ export class UpdateStats {
 
                 console.log(`Trying to insert ${res.length} entries`);
                 const opts: any = { ordered: false };
+                // eslint-disable-next-line @typescript-eslint/await-thenable
                 await this.db.collection('stats_fiat_rates').insert(res, opts);
                 console.log(`${res.length} entries inserted in stats_fiat_rates`);
               });
@@ -203,6 +210,7 @@ export class UpdateStats {
 
   async lastRun(coll) {
     // Grab last run
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     let cursor = await this.db
       .collection(coll)
       .find({}) // , { _id: true }})  // not working on new mongo driver
@@ -252,6 +260,7 @@ export class UpdateStats {
           }
         }
       ])
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .toArray(async (err, res) => {
         if (err) {
           console.log('!! Update txps stats throws error:', err);
@@ -275,6 +284,7 @@ export class UpdateStats {
                 res = res.filter(x => x._id.day);
                 console.log(`\tTrying to insert ${res.length} entries`);
                 const opts: any = { ordered: false };
+                // eslint-disable-next-line @typescript-eslint/await-thenable
                 await this.db.collection('stats_txps').insert(res, opts);
                 console.log(`\t${res.length} entries inserted in stats_txps`);
               });

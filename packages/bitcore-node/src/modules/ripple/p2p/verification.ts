@@ -63,7 +63,7 @@ export class XrpVerificationPeer extends XrpP2pWorker implements IVerificationPe
           continue;
         }
         blockTxs.push(transaction);
-        blockCoins.push(...(coins as Array<IXrpCoin>));
+        blockCoins.push(...(coins ));
       }
 
       if (nextBlock) {

@@ -19,6 +19,7 @@ export class Utils {
     args = [].concat(args);
     if (!_.isObject(obj)) return args;
     const missing = _.filter(args, arg => {
+      // eslint-disable-next-line no-prototype-builtins
       return !obj.hasOwnProperty(arg);
     });
     return missing;

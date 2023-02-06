@@ -20,7 +20,7 @@ export { StreamingFindOptions };
 export class StorageService {
   client?: MongoClient;
   db?: Db;
-  connected: boolean = false;
+  connected = false;
   connection = new EventEmitter();
   configService: ConfigService;
   modelsConnected = new Array<Promise<any>>();
@@ -98,7 +98,7 @@ export class StorageService {
             typecastedValue = Number(oldValue) as any;
             break;
           case 'string':
-            typecastedValue = (oldValue || '').toString() as any;
+            typecastedValue = (oldValue || '').toString() ;
             break;
           case 'date':
             typecastedValue = new Date(oldValue) as any;

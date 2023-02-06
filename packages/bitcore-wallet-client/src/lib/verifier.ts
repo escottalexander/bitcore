@@ -138,6 +138,7 @@ export class Verifier {
       return false;
     if (!strEqual(txp.payProUrl, args.payProUrl)) return false;
 
+    // eslint-disable-next-line no-redeclare
     var decryptedMessage = null;
     try {
       decryptedMessage = Utils.decryptMessage(args.message, encryptingKey);

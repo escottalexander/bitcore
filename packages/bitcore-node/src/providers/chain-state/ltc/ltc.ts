@@ -1,7 +1,7 @@
 import { BTCStateProvider } from '../btc/btc';
 
 export class LTCStateProvider extends BTCStateProvider {
-  constructor(chain: string = 'LTC') {
+  constructor(chain = 'LTC') {
     super(chain);
   }
 }

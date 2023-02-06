@@ -18,7 +18,7 @@ export class SyncWorker {
   private web3?: Web3;
   private rpc?: IRpc;
   private client?: 'erigon' | 'geth';
-  private stopping: boolean = false;
+  private stopping = false;
 
   constructor() {
     this.chainConfig = Config.get().chains[this.chain][this.network];
@@ -27,7 +27,7 @@ export class SyncWorker {
   async start() {
     await this.connect();
     await Storage.start();
-    this.parentPort!.on('message', this.messageHandler.bind(this));
+    this.parentPort.on('message', this.messageHandler.bind(this));
   }
 
   async messageHandler(msg) {

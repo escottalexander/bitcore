@@ -1,4 +1,5 @@
-import * as async from 'async';
+
+/* eslint-disable */ // TODO: File too large to lint, need to split upimport * as async from 'async';
 import express from 'express';
 import _ from 'lodash';
 import 'source-map-support/register';
@@ -301,6 +302,7 @@ export class ExpressApp {
     }
 
     // retrieve latest version of copay
+    // eslint-disable-next-line @typescript-eslint/require-await
     router.get('/latest-version', async (req, res) => {
       SetPublicCache(res, 10 * ONE_MINUTE);
       try {

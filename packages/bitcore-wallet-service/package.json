@@ -34,8 +34,8 @@
     "compile": "npm run clean && npm run build",
     "pub": "npm run build && npm publish",
     "precommit": "npm run fix && npm run lint",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
+    "lint": "eslint -c ../../.eslintrc.js 'src/**/*.ts'",
+    "fix": "eslint --fix -c ../../.eslintrc.js 'src/**/*.ts'",
     "update:stats": "npm run clean && npm run tsc && chmod +x ./ts_build/updatestats/updatestats.js && ./ts_build/updatestats/updatestats.js ",
     "clean:fiatrates": "npm run clean && npm run tsc && chmod +x ./ts_build/cleanfiatrates/cleanfiatrates.js && ./ts_build/cleanfiatrates/cleanfiatrates.js "
   },
@@ -95,9 +95,7 @@
     "sinon": "^7.1.1",
     "supertest": "*",
     "ts-node": "^8.0.3",
-    "tslint": "^5.14.0",
-    "typescript": "^4.9.4",
-    "typescript-eslint-parser": "^22.0.0"
+    "typescript": "^4.9.4"
   },
   "bitcoreNode": "./bitcorenode",
   "contributors": [

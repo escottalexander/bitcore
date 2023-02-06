@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { ERC20Abi, MULTISENDAbi } from '../erc20/abi';
 import { MATICTxProvider } from '../matic';
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const { toBN } = Web3.utils;
 
 export class MATICERC20TxProvider extends MATICTxProvider {

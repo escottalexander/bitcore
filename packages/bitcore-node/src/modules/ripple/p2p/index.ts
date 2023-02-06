@@ -157,7 +157,7 @@ export class XrpP2pWorker extends BaseP2PWorker<any> {
                 if (Date.now() - 5000 > lastLog) {
                   logger.info(`Syncing ${count - done} ${chain} ${network} wallets`);
                 }
-                const walletAddress = (data as any) as IWalletAddress;
+                const walletAddress = (data ) as IWalletAddress;
                 const [lastTx] = await XrpTransactionStorage.collection
                   .find({ wallets: walletAddress.wallet, 'wallets.0': { $exists: true } })
                   .sort({ blockTimeNormalized: -1 })
@@ -297,7 +297,7 @@ export class XrpP2pWorker extends BaseP2PWorker<any> {
           continue;
         }
         blockTxs.push(transaction);
-        blockCoins.push(...(coins as Array<IXrpCoin>));
+        blockCoins.push(...(coins ));
       }
 
       await this.blockModel.processBlock({

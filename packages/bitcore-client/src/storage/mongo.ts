@@ -80,6 +80,7 @@ export class Mongo {
     const cursor = this.collection
       .find({ name: { $exists: true } }, { name: 1, chain: 1, network: 1, storageType: 1 })
       .pipe(stream);
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     stream.on('end', async () => await this.close());
     return cursor;
   }
@@ -94,6 +95,7 @@ export class Mongo {
       }
     });
     const cursor = this.collection.find({}, { name: 1, key: 1, toStore: 1, storageType: 1 }).pipe(stream);
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     stream.on('end', async () => await this.close());
     return cursor;
   }

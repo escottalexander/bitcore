@@ -16,8 +16,8 @@ export interface IAddressManager {
 export class AddressManager {
   version: number;
   derivationStrategy: string;
-  receiveAddressIndex: number = 0;
-  changeAddressIndex: number = 0;
+  receiveAddressIndex = 0;
+  changeAddressIndex = 0;
   copayerIndex: number;
   skippedPaths: Array<{ path: string; isChange: boolean }>;
 

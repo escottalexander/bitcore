@@ -1,5 +1,6 @@
 /**
  * The official client library for bitcore-wallet-service.
+ *
  * @module Client
  */
 

@@ -143,6 +143,7 @@ export class API extends EventEmitter {
         return cb(err);
       }
       if (notifications.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         this.lastNotificationId = (_.last(notifications) as any).id;
       }
 
@@ -453,7 +454,7 @@ export class API extends EventEmitter {
     }
     var B = Bitcore_[chain];
 
-    var privateKey = new B.PrivateKey(privateKey);
+    privateKey = new B.PrivateKey(privateKey);
     var address = privateKey.publicKey.toAddress().toString(true);
 
     this.getUtxos(
@@ -480,7 +481,7 @@ export class API extends EventEmitter {
       return cb(new Error('EVM based chains not supported for this action'));
 
     var B = Bitcore_[chain];
-    var privateKey = B.PrivateKey(privateKey);
+    privateKey = B.PrivateKey(privateKey);
     var address = privateKey.publicKey.toAddress().toString(true);
 
     async.waterfall(
@@ -694,7 +695,7 @@ export class API extends EventEmitter {
           inputIndex: i,
           signature,
           sigtype:
-            // tslint:disable-next-line:no-bitwise
+            // eslint-disable-next-line no-bitwise
             bitcore.crypto.Signature.SIGHASH_ALL |
             bitcore.crypto.Signature.SIGHASH_FORKID,
           publicKey: pub
@@ -712,7 +713,7 @@ export class API extends EventEmitter {
     switch (chain.toLowerCase()) {
       case 'xrp':
       case 'eth':
-      case 'matic':
+      case 'matic': {
         const unsignedTxs = t.uncheckedSerialize();
         const signedTxs = [];
         for (let index = 0; index < signatures.length; index++) {
@@ -733,6 +734,7 @@ export class API extends EventEmitter {
         t.uncheckedSerialize = () => signedTxs;
         t.serialize = () => signedTxs;
         break;
+      }
       default:
         return this._addSignaturesToBitcoreTxBitcoin(txp, t, signatures, xpub);
     }
@@ -1095,7 +1097,7 @@ export class API extends EventEmitter {
           useNativeSegwit
         };
 
-        if (!!supportBIP44AndP2PKH)
+        if (supportBIP44AndP2PKH)
           args['supportBIP44AndP2PKH'] = supportBIP44AndP2PKH;
 
         this.request.post('/v2/wallets/', args, (err, body) => {
@@ -1113,7 +1115,7 @@ export class API extends EventEmitter {
           var opts = {
             coin: c.coin
           };
-          if (!!supportBIP44AndP2PKH)
+          if (supportBIP44AndP2PKH)
             opts['supportBIP44AndP2PKH'] = supportBIP44AndP2PKH;
 
           async.each(
@@ -1795,6 +1797,7 @@ export class API extends EventEmitter {
 
   /**
    * Create advertisement for bitpay app - (limited to marketing staff)
+   *
    * @param opts - options
    */
   createAdvertisement(opts, cb) {
@@ -1813,6 +1816,7 @@ export class API extends EventEmitter {
 
   /**
    * Get advertisements for bitpay app - (limited to marketing staff)
+   *
    * @param opts - options
    * @param opts.testing - if set, fetches testing advertisements
    */
@@ -1832,6 +1836,7 @@ export class API extends EventEmitter {
 
   /**
    * Get advertisements for bitpay app, for specified country - (limited to marketing staff)
+   *
    * @param opts - options
    * @param opts.country - if set, fetches ads by Country
    */
@@ -1848,6 +1853,7 @@ export class API extends EventEmitter {
 
   /**
    * Get Advertisement
+   *
    * @param opts - options
    */
   getAdvertisement(opts, cb) {
@@ -1862,6 +1868,7 @@ export class API extends EventEmitter {
 
   /**
    * Activate Advertisement
+   *
    * @param opts - options
    */
   activateAdvertisement(opts, cb) {
@@ -1877,6 +1884,7 @@ export class API extends EventEmitter {
 
   /**
    * Deactivate Advertisement
+   *
    * @param opts - options
    */
   deactivateAdvertisement(opts, cb) {
@@ -1892,6 +1900,7 @@ export class API extends EventEmitter {
 
   /**
    * Delete Advertisement
+   *
    * @param opts - options
    */
   deleteAdvertisement(opts, cb) {
@@ -2424,7 +2433,7 @@ export class API extends EventEmitter {
   getFiatRate(opts, cb) {
     $.checkArgument(cb);
 
-    var opts = opts || {};
+    opts = opts || {};
 
     var args = [];
     if (opts.ts) args.push('ts=' + opts.ts);
@@ -3132,6 +3141,7 @@ export class API extends EventEmitter {
                 wallet.status.preferences.multisigMaticInfo;
               if (!_.isEmpty(tokenAddresses) || !_.isEmpty(multisigEthInfo)) {
                 if (!_.isEmpty(tokenAddresses)) {
+                  // eslint-disable-next-line no-inner-declarations
                   function oneInchGetTokensData() {
                     return new Promise((resolve, reject) => {
                       newClient.request.get(
@@ -3212,6 +3222,7 @@ export class API extends EventEmitter {
                 !_.isEmpty(multisigMaticInfo)
               ) {
                 if (!_.isEmpty(maticTokenAddresses)) {
+                  // eslint-disable-next-line no-inner-declarations
                   function oneInchGetTokensData() {
                     return new Promise((resolve, reject) => {
                       newClient.request.get(

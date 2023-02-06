@@ -44,6 +44,7 @@ export class XrpValidation implements IValidation {
 
   private extractAddress(data) {
     const prefix = /^[a-z]+:/i;
+    // eslint-disable-next-line no-useless-escape
     const params = /([\?\&](amount|dt)=(\d+([\,\.]\d+)?))+/i;
     return data.replace(prefix, '').replace(params, '');
   }

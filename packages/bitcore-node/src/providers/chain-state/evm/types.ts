@@ -239,7 +239,6 @@ export interface EventLog<T> {
   blockNumber: number;
   raw?: { data: string; topics: any[] };
 }
-export interface ERC20Transfer
-  extends EventLog<{
+export type ERC20Transfer = EventLog<{
     [key: string]: string;
-  }> {}
+  }>

@@ -101,7 +101,7 @@ export class EVMVerificationPeer extends EVMP2pWorker implements IVerificationPe
     }
 
     const blockTxids = blockTxs.map(t => t.txid);
-    const firstHash = blockTxs[0] ? blockTxs[0].blockHash : block!.hash;
+    const firstHash = blockTxs[0] ? blockTxs[0].blockHash : block.hash;
     const [mempoolTxs, blocksForHash, blocksForHeight] = await Promise.all([
       this.txModel.collection.find({ chain, network, blockHeight: -1, txid: { $in: blockTxids } }).toArray(),
       this.blockModel.collection.countDocuments({ chain, network, hash: firstHash }),

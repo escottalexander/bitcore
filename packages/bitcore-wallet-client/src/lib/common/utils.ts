@@ -160,6 +160,7 @@ export class Utils {
   static getProposalHash(proposalHeader) {
     // For backwards compatibility
     if (arguments.length > 1) {
+      // eslint-disable-next-line prefer-spread, prefer-rest-params
       return this.getOldHash.apply(this, arguments);
     }
 
@@ -198,6 +199,7 @@ export class Utils {
     var bitcoreAddress;
     switch (scriptType) {
       case Constants.SCRIPT_TYPES.P2WSH:
+        // eslint-disable-next-line no-case-declarations
         const nestedWitness = false;
         bitcoreAddress = bitcore.Address.createMultisig(
           publicKeys,

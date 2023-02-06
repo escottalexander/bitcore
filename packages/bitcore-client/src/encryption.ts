@@ -132,6 +132,7 @@ function decrypt(opts: { key?: string; iv?: Buffer | string; cipherText?: string
   let firstHalf = key.slice(0, 32); // AES256-cbc shared key
   let AESDecipher = crypto.createDecipheriv('aes-256-cbc', firstHalf, secondHalf);
   let plainText;
+  // eslint-disable-next-line no-useless-catch
   try {
     plainText = Buffer.concat([AESDecipher.update(cipherText), AESDecipher.final()]).toString('hex');
   } catch (e) {

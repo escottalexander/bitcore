@@ -177,7 +177,7 @@ export class VerificationPeer extends BitcoinP2PWorker implements IVerificationP
     }
 
     const blockTxids = blockTxs.map(t => t.txid);
-    const firstHash = blockTxs[0] ? blockTxs[0].blockHash : block!.hash;
+    const firstHash = blockTxs[0] ? blockTxs[0].blockHash : block.hash;
     const [coinsForTx, mempoolTxs, blocksForHash, blocksForHeight, p2pBlock] = await Promise.all([
       CoinStorage.collection.find({ chain, network, mintTxid: { $in: blockTxids } }).toArray(),
       TransactionStorage.collection.find({ chain, network, blockHeight: -1, txid: { $in: blockTxids } }).toArray(),

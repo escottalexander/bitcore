@@ -15,15 +15,15 @@ export class Erc20RelatedFilterTransform extends Transform {
       tx.abiType.name === 'transfer' &&
       tx.to.toLowerCase() === this.tokenAddress.toLowerCase()
     ) {
-      tx.value = tx.abiType!.params[1].value as any;
-      tx.to = this.web3.utils.toChecksumAddress(tx.abiType!.params[0].value);
+      tx.value = tx.abiType.params[1].value as any;
+      tx.to = this.web3.utils.toChecksumAddress(tx.abiType.params[0].value);
     } else if (
       tx.abiType &&
       tx.abiType.type === 'INVOICE' &&
       tx.abiType.name === 'pay' &&
       tx.abiType.params[8].value.toLowerCase() === this.tokenAddress.toLowerCase()
     ) {
-      tx.value = tx.abiType!.params[0].value as any;
+      tx.value = tx.abiType.params[0].value as any;
     } else if (tx.internal && tx.internal.length > 0) {
       this.erigonInternalTransform(tx);
       return done();

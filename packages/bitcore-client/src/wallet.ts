@@ -200,10 +200,12 @@ export class Wallet {
     if (!validPass) {
       throw new Error('Incorrect Password');
     }
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     const encryptionKey = await Encryption.decryptEncryptionKey(this.encryptionKey, password);
     let masterKey;
     if (!this.lite) {
       const encMasterKey = this.masterKey;
+      // eslint-disable-next-line @typescript-eslint/await-thenable
       const masterKeyStr = await Encryption.decryptPrivateKey(encMasterKey, this.pubKey, encryptionKey);
       masterKey = JSON.parse(masterKeyStr);
     }
@@ -312,6 +314,7 @@ export class Wallet {
     await this.saveWallet();
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async newTx(params: {
     utxos?: any[];
     recipients: { address: string; amount: number }[];
@@ -473,6 +476,7 @@ export class Wallet {
   }
 
   async derivePrivateKey(isChange, addressIndex = 0) {
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     const keyToImport = await Deriver.derivePrivateKey(
       this.chain,
       this.network,
@@ -516,7 +520,7 @@ export class Wallet {
     return addresses;
   }
 
-  async getNonce(addressIndex: number = 0, isChange?: boolean) {
+  async getNonce(addressIndex = 0, isChange?: boolean) {
     const address = this.deriveAddress(0, isChange);
     const count = await this.client.getNonce({ address });
     if (!count || typeof count.nonce !== 'number') {

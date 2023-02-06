@@ -69,9 +69,11 @@ _.each(levels, function (level, levelName) {
 
       var str = '[' + levelName + (caller || '') + '] ' + arguments[0],
         extraArgs,
+        // eslint-disable-next-line no-redeclare
         extraArgs = [].slice.call(arguments, 1);
       if (console[levelName]) {
         extraArgs.unshift(str);
+        // eslint-disable-next-line prefer-spread
         console[levelName].apply(console, extraArgs);
       } else {
         if (extraArgs.length) {

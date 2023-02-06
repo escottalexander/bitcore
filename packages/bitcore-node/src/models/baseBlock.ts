@@ -11,8 +11,8 @@ export abstract class BaseBlock<T extends IBlock> extends BaseModel<T> {
 
   allowedPaging = [
     {
-      key: 'height' as 'height',
-      type: 'number' as 'number'
+      key: 'height' as const,
+      type: 'number' as const
     }
   ];
 

@@ -58,7 +58,7 @@ router.get('/:pubKey/addresses', Auth.authenticateMiddleware, async (req: Authen
   try {
     const { wallet } = req;
     let { chain, network } = req.params;
-    let { limit } = req.query as any;
+    let { limit } = req.query ;
     let payload: StreamWalletAddressesParams = {
       chain,
       network,
@@ -168,7 +168,7 @@ router.get('/:pubKey/balance/:time', Auth.authenticateMiddleware, async (req: Au
 
 router.get('/:pubKey/utxos', Auth.authenticateMiddleware, async (req: AuthenticatedRequest, res: Response) => {
   let { chain, network } = req.params;
-  let { limit } = req.query as any;
+  let { limit } = req.query ;
   try {
     return ChainStateProvider.streamWalletUtxos({
       chain,

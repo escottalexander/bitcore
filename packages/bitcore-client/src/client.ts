@@ -129,6 +129,7 @@ export class Client {
   async getFee(params) {
     const { target } = params;
     const url = `${this.apiUrl}/fee/${target}`;
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     return new Promise(resolve =>
       request
         .get(url, {

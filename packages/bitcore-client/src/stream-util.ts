@@ -20,6 +20,7 @@ export class ParseApiStream extends Transform {
 function signTxStream(wallet: any, keys: object, utxosPassedIn: object, passphrase: string) {
   return new Transform({
     objectMode: true,
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     async transform(chunk, encoding, callback) {
       const rawTransaction = chunk.rawTransaction;
       const utxos = utxosPassedIn || chunk.utxos;

@@ -50,6 +50,7 @@ export class PayProV2 {
 
   /**
    * Internal method for making requests asynchronously
+   *
    * @param {Object} options
    * @return {Promise<Object{rawBody: String, headers: Object}>}
    * @private
@@ -152,6 +153,7 @@ export class PayProV2 {
 
   /**
    * Makes a request to the given url and returns the raw JSON string retrieved as well as the headers
+   *
    * @param {string} paymentUrl the payment protocol specific url
    * @param {boolean} unsafeBypassValidation bypasses signature verification on the request (DO NOT USE IN PRODUCTION)
    */
@@ -195,6 +197,7 @@ export class PayProV2 {
 
   /**
    * Selects which chain and currency option the user will be using for payment
+   *
    * @param {string} paymentUrl the payment protocol specific url
    * @param chain
    * @param currency
@@ -235,6 +238,7 @@ export class PayProV2 {
 
   /**
    * Sends an unsigned raw transaction to the server for verification of outputs and fee amount
+   *
    * @param {string} paymentUrl - the payment protocol specific url
    * @param {string} chain - The cryptocurrency chain of the payment (BTC, BCH, ETH, etc)
    * @param {string} currency - When spending a token on top of a chain, such as GUSD on ETH this would be GUSD,
@@ -277,6 +281,7 @@ export class PayProV2 {
 
   /**
    * Sends a signed transaction as the final step for payment
+   *
    * @param {string} paymentUrl the payment protocol specific url
    * @param {string} chain
    * @param {string} currency
@@ -322,6 +327,7 @@ export class PayProV2 {
 
   /**
    * Verifies the signature on any response from the payment requestor
+   *
    * @param {String} requestUrl - Url which the request was made to
    * @param {String} rawBody - The raw string body of the response
    * @param {Object} headers -
@@ -352,6 +358,7 @@ export class PayProV2 {
     }
 
     let payProDetails;
+    // eslint-disable-next-line no-useless-catch
     try {
       payProDetails = this.processResponse(responseData);
     } catch (e) {
@@ -436,6 +443,7 @@ export class PayProV2 {
 
   /**
    * Internal method for processing response
+   *
    * @param {Object} responseData
    * @return {Promise<Object{payProDetails: Object}>}
    * @private

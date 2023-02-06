@@ -56,6 +56,7 @@ export class CleanFiatRates {
       [
         next => {
           console.log('## Getting dates to keep...');
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this._getDatesToKeep((err, res) => {
             if (err) {
               return next(err);
@@ -66,6 +67,7 @@ export class CleanFiatRates {
         },
         next => {
           console.log('## Cleaning fiat rates...');
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this._cleanFiatRates(dates, next);
         }
       ],
@@ -76,6 +78,7 @@ export class CleanFiatRates {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async _getDatesToKeep(cb) {
     this.from = new Date();
     this.from.setMonth(this.from.getMonth() - 2); // from 2 month ago
@@ -137,8 +140,10 @@ export class CleanFiatRates {
       });
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async _cleanFiatRates(datesToKeep, cb) {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.db
         .collection(storage.Storage.collections.FIAT_RATES2)
         .remove({

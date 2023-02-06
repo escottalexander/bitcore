@@ -132,15 +132,15 @@ export class AsyncRPC {
   }
 
   async block(hash: string): Promise<RPCBlock<string>> {
-    return (await this.call('getblock', [hash, 1])) as RPCBlock<string>;
+    return (await this.call('getblock', [hash, 1]));
   }
 
   async verbose_block(hash: string): Promise<RPCBlock<RPCTransaction>> {
-    return (await this.call('getblock', [hash, 2])) as RPCBlock<RPCTransaction>;
+    return (await this.call('getblock', [hash, 2]));
   }
 
   async getnewaddress(account: string): Promise<string> {
-    return (await this.call('getnewaddress', [account])) as string;
+    return (await this.call('getnewaddress', [account]));
   }
 
   async signrawtx(txs: string): Promise<any> {
@@ -158,7 +158,7 @@ export class AsyncRPC {
     if (block) {
       args.push(block);
     }
-    return (await this.call('getrawtransaction', args)) as RPCTransaction;
+    return (await this.call('getrawtransaction', args));
   }
 
   async sendtoaddress(address: string, value: string | number) {

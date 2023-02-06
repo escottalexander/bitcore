@@ -60,6 +60,7 @@ export class Level {
     await this.db.del(`wallet|${name}`);
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async listWallets() {
     return this.db.createReadStream().pipe(
       new Transform({
@@ -76,6 +77,7 @@ export class Level {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async listKeys() {
     return this.db.createReadStream().pipe(
       new Transform({
@@ -94,6 +96,7 @@ export class Level {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async saveWallet(params) {
     const { wallet } = params;
     delete wallet.storage;

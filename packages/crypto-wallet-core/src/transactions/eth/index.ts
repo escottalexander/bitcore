@@ -4,6 +4,7 @@ import { AbiItem } from 'web3-utils';
 import { Key } from '../../derivation';
 import { ERC20Abi, MULTISENDAbi } from '../erc20/abi';
 const utils = require('web3-utils');
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const { toBN } = Web3.utils;
 export class ETHTxProvider {
   create(params: {

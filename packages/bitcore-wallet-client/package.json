@@ -37,10 +37,10 @@
     "tsc": "npm run clean && tsc",
     "build": "tsc && npm run lint",
     "clean": "rm -rf ./ts_build",
-    "fix": "tslint --fix -c ../../tslint.json 'src/**/*.ts'",
+    "fix": "eslint --fix -c ../../.eslintrc.js 'src/**/*.ts'",
     "pub": "npm run build && npm publish",
     "precommit": "npm run fix && npm run lint",
-    "lint": "tslint -c ../../tslint.json 'src/**/*.ts'"
+    "lint": "eslint -c ../../.eslintrc.js 'src/**/*.ts'"
   },
   "dependencies": {
     "ajv": "^6.10.0",
@@ -73,8 +73,6 @@
     "sinon": "^7.1.1",
     "supertest": "*",
     "ts-node": "^8.0.3",
-    "tslint": "^5.14.0",
-    "typescript-eslint-parser": "^22.0.0",
     "uuid": "^2.0.1"
   },
   "gitHead": "012cc0216a9bc6b195035855bd17149bad41acd1"

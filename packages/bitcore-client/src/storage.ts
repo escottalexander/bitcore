@@ -106,6 +106,7 @@ export class Storage {
     return passThrough;
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async saveWallet(params) {
     const { wallet } = params;
     return this.storageType.saveWallet({ wallet });

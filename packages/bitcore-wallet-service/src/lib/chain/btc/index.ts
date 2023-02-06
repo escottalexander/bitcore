@@ -91,7 +91,7 @@ export class BtcChain implements IChain {
       };
 
       let inputs = _.reject(utxos, 'locked');
-      if (!!opts.excludeUnconfirmedUtxos) {
+      if (opts.excludeUnconfirmedUtxos) {
         inputs = _.filter(inputs, 'confirmations');
       }
       inputs = _.sortBy(inputs, input => {
@@ -916,6 +916,7 @@ export class BtcChain implements IChain {
         const s = {
           inputIndex: i,
           signature,
+          // eslint-disable-next-line no-bitwise
           sigtype: this.bitcoreLib.crypto.Signature.SIGHASH_ALL | this.bitcoreLib.crypto.Signature.SIGHASH_FORKID,
           publicKey: pub
         };

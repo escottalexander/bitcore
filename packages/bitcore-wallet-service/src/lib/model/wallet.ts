@@ -174,6 +174,7 @@ export class Wallet {
   /**
    * Get the maximum allowed number of required copayers.
    * This is a limit imposed by the maximum allowed size of the scriptSig.
+   *
    * @param {number} totalCopayers - the total number of copayers
    * @return {number}
    */

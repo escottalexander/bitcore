@@ -17,6 +17,7 @@ export class EthValidation implements IValidation {
 
   protected extractAddress(data) {
     const prefix = /^[a-z]+:/i;
+    // eslint-disable-next-line no-useless-escape
     const params = /([\?\&](value|gas|gasPrice|gasLimit)=(\d+([\,\.]\d+)?))+/i;
     return data.replace(prefix, '').replace(params, '');
   }

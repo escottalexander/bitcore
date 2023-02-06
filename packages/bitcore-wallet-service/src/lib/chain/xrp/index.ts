@@ -12,6 +12,7 @@ const Errors = require('../../errors/errordefinitions');
 export class XrpChain implements IChain {
   /**
    * Converts Bitcore Balance Response.
+   *
    * @param {Object} bitcoreBalance - { unconfirmed, confirmed, balance }
    * @param {Number} locked - Sum of txp.amount
    * @returns {Object} balance - Total amount & locked amount.

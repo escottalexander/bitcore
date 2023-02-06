@@ -3,7 +3,7 @@ import { GetEstimateSmartFeeParams } from '../../../types/namespaces/ChainStateP
 import { BTCStateProvider } from '../btc/btc';
 
 export class BCHStateProvider extends BTCStateProvider {
-  constructor(chain: string = 'BCH') {
+  constructor(chain = 'BCH') {
     super(chain);
   }
 

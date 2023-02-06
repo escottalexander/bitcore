@@ -152,7 +152,9 @@ export class BlockchainMonitor {
 
   _initExplorer(chain, network, explorer) {
     explorer.initSocket({
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       onBlock: _.bind(this._handleNewBlock, this, chain, network),
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       onIncomingPayments: _.bind(this._handleIncomingPayments, this, chain, network)
     });
   }

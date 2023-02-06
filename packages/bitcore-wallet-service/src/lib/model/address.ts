@@ -109,6 +109,7 @@ export class Address {
     let bitcoreAddress;
     switch (scriptType) {
       case Constants.SCRIPT_TYPES.P2WSH:
+        // eslint-disable-next-line no-case-declarations
         const nestedWitness = false;
         bitcoreAddress = Address.Bitcore[chain].Address.createMultisig(
           publicKeys,

@@ -13,6 +13,7 @@ export class InternalTxRelatedFilterTransform extends Transform {
   /**
    * This creates a duplicate transaction object for each relevant
    * internal tx with the `value` field reset to the internal value.
+   *
    * @param tx Transaction object
    * @param _ Encoding (discarded)
    * @param done Callback

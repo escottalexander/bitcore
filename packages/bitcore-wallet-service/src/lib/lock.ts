@@ -62,6 +62,7 @@ export class Lock {
       if (err) return cb(err);
 
       const _cb = function() {
+        // eslint-disable-next-line prefer-spread, prefer-rest-params
         cb.apply(null, arguments);
         release();
       };

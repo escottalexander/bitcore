@@ -32,7 +32,7 @@ const wordsForLang: any = {
 
 // we always set 'livenet' for xprivs. it has not consecuences
 // other than the serialization
-const NETWORK: string = 'livenet';
+const NETWORK = 'livenet';
 export class Key {
   #xPrivKey: string;
   #xPrivKeyEncrypted: string;
@@ -99,7 +99,7 @@ export class Key {
     let x = opts.seedData;
 
     switch (opts.seedType) {
-      case 'new':
+      case 'new': {
         if (opts.language && !wordsForLang[opts.language])
           throw new Error('Unsupported language');
 
@@ -109,12 +109,14 @@ export class Key {
         }
         this.setFromMnemonic(m, opts);
         break;
-      case 'mnemonic':
+      }
+      case 'mnemonic': {
         $.checkArgument(x, 'Need to provide opts.seedData');
         $.checkArgument(_.isString(x), 'sourceData need to be a string');
         this.setFromMnemonic(new Mnemonic(x), opts);
         break;
-      case 'extendedPrivateKey':
+      }
+      case 'extendedPrivateKey': {
         $.checkArgument(x, 'Need to provide opts.seedData');
 
         let xpriv;
@@ -138,6 +140,7 @@ export class Key {
         this.#mnemonic = null;
         this.#mnemonicHasPassphrase = null;
         break;
+      }
       case 'object':
         $.shouldBeObject(x, 'Need to provide an object at opts.seedData');
         $.shouldBeUndefined(
@@ -495,7 +498,7 @@ export class Key {
     var privs = [];
     var derived: any = {};
 
-    var derived = this.derive(password, rootPath);
+    derived = this.derive(password, rootPath);
     var xpriv = new Bitcore.HDPrivateKey(derived);
 
     var t = Utils.buildTx(txp);
