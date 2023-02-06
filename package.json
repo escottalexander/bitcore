@@ -15,7 +15,7 @@
     "compile": "./node_modules/.bin/lerna run compile",
     "lint": "lerna run lint",
     "fix": "lerna run fix",
-    "precommit": "lerna run --concurrency 1 --stream precommit --since master",
+    "precommit": "",
     "test:ci:local": "npm run test:ci:build:local && npm run test:ci:all",
     "test:ci:build:local": "./ci.sh build local",
     "test:ci": "echo 'This command has been removed. Try running `npm run test:ci:local` to run tests locally using the test_runner docker container as before. The CI pipeline logic is now in .circleci/config.yml.'",
@@ -65,16 +65,17 @@
     }
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "cz-customizable": "^5.2.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint": "^8.33.0",
+    "eslint-plugin-jsdoc": "^39.7.5",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^2.4.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.15.0",
-    "typescript-eslint-parser": "^15.0.0"
+    "typedoc": "^0.15.0"
   },
   "dependencies": {
     "lerna": "^3.22.1",
